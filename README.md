@@ -1,4 +1,5 @@
 Quiz React App
+
 A multi-category quiz application built with React that lets users attempt timed MCQ quizzes across domains like Sports, Finance, Science/Social Studies, and General Knowledge. The app tracks scores, saves best scores per category, supports light/dark themes, and provides a detailed answer review at the end of each quiz.​
 
 Live demo: https://quiz-react-qc7r5lui0-pranav-shalyas-projects.vercel.app
