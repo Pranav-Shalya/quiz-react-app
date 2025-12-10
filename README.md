@@ -1,70 +1,132 @@
-# Getting Started with Create React App
+Quiz React App
+A multi-category quiz application built with React that lets users attempt timed MCQ quizzes across domains like Sports, Finance, Science/Social Studies, and General Knowledge. The app tracks scores, saves best scores per category, supports light/dark themes, and provides a detailed answer review at the end of each quiz.​
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Live demo: https://quiz-react-qc7r5lui0-pranav-shalyas-projects.vercel.app
 
-## Available Scripts
+Features
+Multiple quiz domains: Sports, Finance, Science/Social Studies, General Knowledge.​
 
-In the project directory, you can run:
+10 curated MCQs per category with single-correct options.
 
-### `npm start`
+Three-step flow: Category selection → Quiz → Result & Review.​
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Timed quiz with countdown and auto-finish when time is over.​
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Per-question progress:
 
-### `npm test`
+Overall progress bar.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Question status dots showing answered/unanswered and allowing jump navigation.​
 
-### `npm run build`
+Score tracking:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Score and accuracy at the end of the quiz.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Best score per category persisted in localStorage and displayed on the category cards.​​
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Detailed review screen showing each question, user’s answer, and correct answer.
 
-### `npm run eject`
+Light/Dark theme toggle:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Theme stored in localStorage.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Implemented via data-theme attribute and CSS variables.​
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Responsive, card-based UI with smooth hover and focus states.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Tech Stack
+React (functional components + hooks: useState, useEffect).​
 
-## Learn More
+Plain CSS for layout, theming, and animations (App.css).
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+LocalStorage for persisting theme and best scores.​
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Deployed on Vercel.
 
-### Code Splitting
+Project Structure
+text
+src/
+  App.jsx            // Top-level state: step, category, theme, bestScores
+  App.css            // Global layout, quiz card, light/dark theme styles
+  questions.js       // questionBank object grouped by category
+  CategoryScreen.jsx // Choose category and view best score per category
+  QuizScreen.jsx     // Main quiz logic + timer + navigation + progress
+  ResultScreen.jsx   // Final score, accuracy, review of all answers
+  index.js           // React entry point
+State Flow
+App.jsx:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+step: "category" | "quiz" | "result".
 
-### Analyzing the Bundle Size
+selectedCategory, currentQuestions.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+score, lastAnswers for result screen.
 
-### Making a Progressive Web App
+bestScores and theme persisted in localStorage.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+QuizScreen.jsx:
 
-### Advanced Configuration
+quizState: { status, currentQuestion, selectedAnswer, score, answers[] }.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+timeLeft for the quiz countdown.
 
-### Deployment
+On finish, calls onFinish(finalScore, answers) to update parent state.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Getting Started
+Prerequisites
+Node.js (LTS recommended).
 
-### `npm run build` fails to minify
+npm or yarn installed.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Installation
+bash
+# clone the repo
+git clone <your-repo-url>
+cd quiz-react-app
+
+# install dependencies
+npm install
+# or
+yarn
+Run in development
+bash
+npm start
+# or
+yarn start
+The app will be available at http://localhost:3000/ by default (Create React App) or the configured port for your setup.​​
+
+Build for production
+bash
+npm run build
+# or
+yarn build
+Deploy the contents of the build folder to any static hosting platform (e.g., Vercel, Netlify).​
+
+How It Works
+Question data is defined in questionBank grouped by category keys (sports, finance, science, gk).​
+
+When a user selects a category, filtered questions are passed into QuizScreen.
+
+Each submitted answer updates:
+
+score if correct.
+
+answers[] with { questionIndex, chosenIndex, isCorrect }.
+
+At the end of the quiz or when the timer runs out:
+
+Parent App updates score, lastAnswers, and bestScores[category] in localStorage if improved.
+
+ResultScreen uses answers[] + questions[] to render the review list.
+
+Possible Extensions
+Add difficulty levels and let users choose number of questions.
+
+Fetch questions from an external API (e.g., Open Trivia DB) for one category.​
+
+Add keyboard shortcuts and improved accessibility (aria-* attributes, focus management).​
+
+Write unit tests with React Testing Library for core flows (timer, scoring, review).​
+
+License
+This project is for learning and portfolio purposes. Adapt and extend it as needed.
