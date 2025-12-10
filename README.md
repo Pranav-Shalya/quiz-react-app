@@ -45,6 +45,7 @@ LocalStorage for persisting theme and best scores.​
 Deployed on Vercel.
 
 Project Structure
+
 text
 src/
   App.jsx            // Top-level state: step, category, theme, bestScores
@@ -103,7 +104,9 @@ npm run build
 yarn build
 Deploy the contents of the build folder to any static hosting platform (e.g., Vercel, Netlify).​
 
+
 How It Works
+
 Question data is defined in questionBank grouped by category keys (sports, finance, science, gk).​
 
 When a user selects a category, filtered questions are passed into QuizScreen.
@@ -120,7 +123,9 @@ Parent App updates score, lastAnswers, and bestScores[category] in localStorage 
 
 ResultScreen uses answers[] + questions[] to render the review list.
 
+
 Possible Extensions
+
 Add difficulty levels and let users choose number of questions.
 
 Fetch questions from an external API (e.g., Open Trivia DB) for one category.​
